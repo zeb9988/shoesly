@@ -13,7 +13,7 @@ void main() async {
   runApp(
     ChangeNotifierProvider<CartProvider>(
       create: (context) => CartProvider(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: DiscoverPage(),
+      home: const DiscoverPage(),
       onGenerateRoute: (settings) => generateRoute(settings),
     );
   }

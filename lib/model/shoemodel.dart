@@ -15,6 +15,7 @@ class Shoe {
   final String name;
   final String brand;
   final double price;
+
   final List<Review> reviews; // Add a list of reviews
   final double averageRating;
   final String imageUrl;
@@ -36,7 +37,8 @@ class Cart {
 
 class CartItem {
   final Shoe product;
+  String size;
   int quantity;
 
-  CartItem({required this.product, required this.quantity});
+  CartItem({required this.product, required this.size, required this.quantity});
 }

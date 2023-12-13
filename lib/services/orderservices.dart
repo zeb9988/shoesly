@@ -21,10 +21,12 @@ Future<void> placeOrder(BuildContext context) async {
                 'productBrand': item.product.brand,
                 'productName': item.product.name,
                 'quantity': item.quantity,
-                'totalPrice': cart.calculateTotalPrice()
+                'totalPrice': cart.calculateTotalPrice(),
+                'Shoe Size': item.size
               })
           .toList(),
       'timestamp': FieldValue.serverTimestamp(),
+
       // Add more fields as needed
     });
 
@@ -37,8 +39,8 @@ Future<void> placeOrder(BuildContext context) async {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Order Placed Successfully'),
-          content: Text('Thank you for your order!'),
+          title: const Text('Order Placed Successfully'),
+          content: const Text('Thank you for your order!'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -49,7 +51,7 @@ Future<void> placeOrder(BuildContext context) async {
                   (route) => false,
                 );
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -58,9 +60,10 @@ Future<void> placeOrder(BuildContext context) async {
     // Navigator.pushNamedAndRemoveUntil(
     //     context, DiscoverPage.id, (route) => false);
   } catch (e) {
-    print("Error placing order: $e");
+    // print("Error placing order: $e");
 
     // Show an error message to the user
+    // ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text("Error placing order: $e"),

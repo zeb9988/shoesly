@@ -65,7 +65,7 @@ class OrderSummaryPage extends StatelessWidget {
                 ),
                 child: Center(
                   child: cartProvider.isLoading
-                      ? Loader()
+                      ? const Loader()
                       : const Text(
                           'PAYMENT',
                           style: TextStyle(

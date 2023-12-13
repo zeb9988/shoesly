@@ -3,6 +3,7 @@ import 'package:sneakerapp/model/shoemodel.dart';
 import 'package:sneakerapp/view/screens/review_page.dart';
 import 'package:sneakerapp/view/widgets/star.dart';
 
+// ignore: camel_case_types
 class allreview extends StatelessWidget {
   const allreview({
     super.key,
@@ -57,7 +58,7 @@ class allreview extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "${review.userId}",
+                            review.userId,
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,

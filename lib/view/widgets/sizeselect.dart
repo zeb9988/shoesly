@@ -4,7 +4,8 @@ class SizeSelectionRow extends StatelessWidget {
   final String selectedSize;
   final ValueChanged<String> onSizeSelected;
 
-  SizeSelectionRow({
+  const SizeSelectionRow({
+    super.key,
     required this.selectedSize,
     required this.onSizeSelected,
   });
@@ -16,19 +17,19 @@ class SizeSelectionRow extends StatelessWidget {
       child: Row(
         children: [
           buildSizeContainer('39'),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           buildSizeContainer('40'),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           buildSizeContainer('41'),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           buildSizeContainer('42'),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           buildSizeContainer('43'),

@@ -5,7 +5,7 @@ import 'package:sneakerapp/view/widgets/star.dart';
 class TopThreeReviewsWidget extends StatelessWidget {
   final List<Review> reviews;
 
-  TopThreeReviewsWidget({required this.reviews});
+  const TopThreeReviewsWidget({super.key, required this.reviews});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class TopThreeReviewsWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${review.userId}",
+                      review.userId,
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,

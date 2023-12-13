@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Loader extends StatelessWidget {
+  const Loader({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black.withOpacity(0.7), // Dark background
-      child: Center(
+      child: const Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

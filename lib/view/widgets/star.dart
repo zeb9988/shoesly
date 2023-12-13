@@ -1,9 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Star extends StatelessWidget {
   final double rating;
-  const Star({required this.rating});
+  const Star({
+    Key? key,
+    required this.rating,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,10 @@ import 'package:sneakerapp/view/screens/FilteredScreen.dart';
 class Filter extends StatefulWidget {
   static const String id = '/filter';
 
+  const Filter({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _FilterState createState() => _FilterState();
 }
 
@@ -17,7 +20,7 @@ class _FilterState extends State<Filter> {
   String selectedSortOption = '';
   String selectedSortOption2 = '';
   String selectedSortOption3 = '';
-
+  double reset = 0;
   List<Shoe> filteredShoes = [];
 
   @override
@@ -269,7 +272,7 @@ class _FilterState extends State<Filter> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
-              width: 1,
+              width: 2,
               color: isSelected ? Colors.black : Colors.grey,
             ),
           ),
@@ -283,7 +286,7 @@ class _FilterState extends State<Filter> {
                   decoration:
                       BoxDecoration(shape: BoxShape.circle, color: color),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
@@ -486,7 +489,7 @@ class _FilterState extends State<Filter> {
           activeColor: Colors.black,
           inactiveColor: Colors.black12,
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

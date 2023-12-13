@@ -1,6 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:sneakerapp/common/shoelist.dart';
-import 'package:sneakerapp/model/shoemodel.dart';
 import 'package:sneakerapp/view/screens/cart_page.dart';
 
 import 'package:sneakerapp/view/screens/filter_page.dart';
@@ -9,6 +10,8 @@ import 'package:sneakerapp/view/widgets/shoegrid.dart';
 
 class DiscoverPage extends StatefulWidget {
   static const String id = '/homepage';
+
+  const DiscoverPage({super.key});
   @override
   State<DiscoverPage> createState() => _DiscoverPageState();
 }
@@ -130,7 +133,7 @@ class _DiscoverPageState extends State<DiscoverPage>
                 padding: const EdgeInsets.all(5.0),
                 child: TabBarView(
                   controller: _tabController,
-                  children: [
+                  children: const [
                     ShoeGrid(), // Display all shoes initially
                     ShoeGrid(filterBrand: 'Nike'),
                     ShoeGrid(filterBrand: 'Adidas'),

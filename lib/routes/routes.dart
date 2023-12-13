@@ -26,19 +26,19 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case CartScreen.id:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => CartScreen(),
+        builder: (_) => const CartScreen(),
       );
 
     case OrderSummaryPage.id:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => OrderSummaryPage(),
+        builder: (_) => const OrderSummaryPage(),
       );
     case Filter.id:
       // var shoes = routeSettings.arguments as List<Shoe>;
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => Filter(),
+        builder: (_) => const Filter(),
       );
     case FilteredProductsScreen.id:
       var shoes = routeSettings.arguments as List<Shoe>;
@@ -49,7 +49,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case DiscoverPage.id:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => DiscoverPage(),
+        builder: (_) => const DiscoverPage(),
       );
     case AllReviewsScreen.id:
       var reviews = routeSettings.arguments as List<Review>;

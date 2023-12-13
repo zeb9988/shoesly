@@ -27,7 +27,7 @@ void main() {
 
       expect(cartProvider.cart.length, 0);
 
-      cartProvider.addToCart(sampleShoe, 2);
+      cartProvider.addToCart(sampleShoe, 2, '40');
 
       expect(cartProvider.cart.length, 1);
       expect(cartProvider.cart[0].product, sampleShoe);
@@ -54,7 +54,7 @@ void main() {
         averageRating: 5.0,
         imageUrl: 'assets/shoe1.png',
       );
-      cartProvider.addToCart(sampleShoe, 2);
+      cartProvider.addToCart(sampleShoe, 2, '34');
 
       expect(cartProvider.cart.length, 1);
 
@@ -83,7 +83,7 @@ void main() {
         averageRating: 5.0,
         imageUrl: 'assets/shoe1.png',
       );
-      cartProvider.addToCart(sampleShoe, 2);
+      cartProvider.addToCart(sampleShoe, 2, '34');
 
       expect(cartProvider.cart[0].quantity, 2);
 
@@ -116,7 +116,7 @@ void main() {
       );
 
       // Act
-      cartProvider.addToCart(sampleShoe, 2);
+      cartProvider.addToCart(sampleShoe, 2, '34');
       cartProvider.updateQuantity(cartProvider.cart[0], 5);
 
       // Assert
@@ -164,8 +164,8 @@ void main() {
       );
 
       // Act
-      cartProvider.addToCart(sampleShoe, 2);
-      cartProvider.addToCart(sampleShoe2, 3);
+      cartProvider.addToCart(sampleShoe, 2, '34');
+      cartProvider.addToCart(sampleShoe2, 3, '34');
 
       // Assert
       expect(cartProvider.calculateTotalPrice(),

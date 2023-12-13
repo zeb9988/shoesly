@@ -3,14 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:sneakerapp/common/loader.dart';
 import 'package:sneakerapp/model/shoemodel.dart'; // Assuming you have a CartProvider class
 import 'package:sneakerapp/provider/userprovider.dart';
-import 'package:sneakerapp/view/screens/Discover_page.dart';
 import 'package:sneakerapp/view/screens/review_page.dart';
 import 'package:sneakerapp/view/screens/cart_page.dart';
+import 'package:sneakerapp/view/widgets/bottomsheet.dart';
+import 'package:sneakerapp/view/widgets/color_selection.dart';
 import 'package:sneakerapp/view/widgets/sizeselect.dart';
 import 'package:sneakerapp/view/widgets/star.dart';
 import 'package:sneakerapp/view/widgets/topthreereview.dart';
-
-String selectedSize = '';
 
 class ProductDetail extends StatefulWidget {
   static const String id = '/productDetail';
@@ -23,7 +22,7 @@ class ProductDetail extends StatefulWidget {
 
 class _ProductDetailState extends State<ProductDetail> {
   int quantity = 1;
-
+  String selectedSize = '';
   double totalPrice = 0.0;
 
   @override
@@ -38,113 +37,48 @@ class _ProductDetailState extends State<ProductDetail> {
     });
   }
 
-  void addToCart(BuildContext context) {
+  void addToCart(BuildContext context) async {
     CartProvider cartProvider =
         Provider.of<CartProvider>(context, listen: false);
-    cartProvider.setLoading(true);
-    // Check if the selectedSize is not empty
+    try {
+      cartProvider.setLoading(true);
+      // Check if the selectedSize is not empty
 
-    // CartItem cartItem = CartItem(product: widget.product, quantity: quantity);
-    cartProvider.addToCart(widget.product, quantity);
-    cartProvider.setLoading(false);
-    // Simulate a delay to mimic an asynchronous operation (remove this in your actual implementation)
+      // CartItem cartItem = CartItem(product: widget.product, quantity: quantity);
+      cartProvider.addToCart(widget.product, quantity, selectedSize);
 
-    // Close the bottom sheet after the delay
-    Navigator.of(context).pop();
-    // Reset the flag when the bottom sheet is closed
+      // await Future.delayed(const Duration(seconds: 2));
 
-    // Show a new bottom sheet with a success message
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.black, width: 3),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.check, color: Colors.black38, size: 48),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Added to cart',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, DiscoverPage.id);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(16.0),
-                      width: 150,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black45, width: 1),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Back Explore',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, CartScreen.id);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(16.0),
-                      width: 150,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'TO CART',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-    );
+      cartProvider.setLoading(false);
+      // Simulate a delay to mimic an asynchronous operation (remove this in your actual implementation)
 
-    // Reset quantity and totalPrice in the bottom sheet to their default values
-    setState(() {
-      quantity = 1;
-      updateTotalPrice();
-    });
+      // Close the bottom sheet after the delay
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pop();
+      // Reset the flag when the bottom sheet is closed
+
+      // Show a new bottom sheet with a success message
+      // ignore: use_build_context_synchronously
+      botomsheet(context);
+
+      // Reset quantity and totalPrice in the bottom sheet to their default values
+      setState(() {
+        quantity = 1;
+        updateTotalPrice();
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error Adding to Cart: $e"),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      cartProvider.setLoading(false);
+      // print(e.toString());
+    }
   }
 
-  void _showQuantityBottomSheet(BuildContext context) {
+  void _showQuantityBottomSheet(BuildContext context) async {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
     showModalBottomSheet(
       context: context,
@@ -184,12 +118,13 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       Expanded(child: Container()),
                       Container(
-                        height: 35,
+                        height: 25,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.black),
                         ),
                         child: IconButton(
+                          padding: const EdgeInsets.all(0),
                           onPressed: () {
                             setState(() {
                               if (quantity > 1) {
@@ -204,14 +139,15 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      // const SizedBox(width: 5),
                       Container(
-                        height: 35,
+                        height: 25,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.black),
                         ),
                         child: IconButton(
+                          padding: const EdgeInsets.all(0),
                           onPressed: () {
                             setState(() {
                               quantity++;
@@ -265,8 +201,8 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                           child: Center(
                             child: cartProvider.isLoading
-                                ? Loader()
-                                : Text(
+                                ? const Loader()
+                                : const Text(
                                     'ADD TO CART',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -290,6 +226,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: const Color(0xffF3F3F3),
       appBar: AppBar(
@@ -334,7 +271,31 @@ class _ProductDetailState extends State<ProductDetail> {
               ],
             ),
             InkWell(
-              onTap: () => _showQuantityBottomSheet(context),
+              onTap: () {
+                if (selectedSize.isEmpty) {
+                  // Display a dialog box if size is not selected
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Select Size'),
+                        content: const Text(
+                            'Please select a size before adding to cart.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  return; // Exit the function if size is not selected
+                }
+                _showQuantityBottomSheet(context);
+              },
               child: Container(
                 padding: const EdgeInsets.all(16.0),
                 width: 150,
@@ -343,15 +304,17 @@ class _ProductDetailState extends State<ProductDetail> {
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(50),
                 ),
-                child: const Center(
-                  child: Text(
-                    'ADD TO CART',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
+                child: Center(
+                  child: cartProvider.isLoading
+                      ? const Loader()
+                      : const Text(
+                          'ADD TO CART',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
                 ),
               ),
             )
@@ -375,82 +338,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Positioned(
-                    bottom: 20,
-                    right: 20,
-                    child: Container(
-                      width: 170,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 3,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            left: 10,
-                            top: 8,
-                            child: Container(
-                              width: 25,
-                              height: 25,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.red,
-                              ),
-                              child: const Icon(
-                                Icons.check,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 50,
-                            top: 8,
-                            child: Container(
-                              width: 25,
-                              height: 25,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.blue,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 90,
-                            top: 8,
-                            child: Container(
-                              width: 25,
-                              height: 25,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.green,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 130,
-                            top: 8,
-                            child: Container(
-                              width: 25,
-                              height: 25,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.yellow,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  const color_selection(),
                 ],
               ),
               const SizedBox(
@@ -482,9 +370,10 @@ class _ProductDetailState extends State<ProductDetail> {
                     const SizedBox(
                       width: 3,
                     ),
-                    const Text(
-                      '(1045 Reviews)',
-                      style: TextStyle(fontSize: 11.0, color: Colors.black45),
+                    Text(
+                      '(${widget.product.reviews.length.toString()})',
+                      style: const TextStyle(
+                          fontSize: 11.0, color: Colors.black45),
                     ),
                   ],
                 ),

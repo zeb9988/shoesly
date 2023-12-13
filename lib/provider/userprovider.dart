@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:sneakerapp/model/shoemodel.dart';
 
 class CartProvider extends ChangeNotifier {
-  List<CartItem> _items = [];
+  final List<CartItem> _items = [];
 
   List<CartItem> get cart => _items;
 
-  void addToCart(Shoe product, int quantity) {
+  void addToCart(Shoe product, int quantity, String size) {
     // Check if the item is already in the cart
     int index = _items.indexWhere((item) => item.product == product);
 
@@ -15,7 +15,7 @@ class CartProvider extends ChangeNotifier {
       _items[index].quantity += quantity;
     } else {
       // If the item is not in the cart, add a new CartItem
-      _items.add(CartItem(product: product, quantity: quantity));
+      _items.add(CartItem(product: product, quantity: quantity, size: size));
     }
 
     // Notify listeners to update the UI

@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sneakerapp/model/shoemodel.dart';
 import 'package:sneakerapp/view/widgets/allreview.dart';
 import 'package:sneakerapp/view/widgets/customtab.dart';
-import 'package:sneakerapp/view/widgets/star.dart';
 
 class AllReviewsScreen extends StatefulWidget {
   static const String id = '/allrating';
   final List<Review> reviews;
 
-  AllReviewsScreen({required this.reviews});
+  const AllReviewsScreen({super.key, required this.reviews});
 
   @override
   State<AllReviewsScreen> createState() => _AllReviewsScreenState();

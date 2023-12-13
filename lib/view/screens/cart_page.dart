@@ -79,8 +79,33 @@ class CartScreen extends StatelessWidget {
                       ],
                     ),
                     InkWell(
-                      onTap: () =>
-                          Navigator.pushNamed(context, OrderSummaryPage.id),
+                      onTap: () {
+                        if (cartProvider
+                                .calculateTotalPrice()
+                                .toStringAsFixed(0) ==
+                            '0') {
+                          // Display a dialog box if size is not selected
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Warning'),
+                                content: const Text('The Cart is empty.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          return; // Exit the function if size is not selected
+                        }
+                        Navigator.pushNamed(context, OrderSummaryPage.id);
+                      },
                       child: Container(
                         padding: const EdgeInsets.all(16.0),
                         width: 150,

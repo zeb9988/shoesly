@@ -31,20 +31,20 @@ Widget buildCartItem(BuildContext context, CartItem cartItem) {
                 fontSize: 11,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
-            Text(
+            const Text(
               'Red Grey .',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 11,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
-              '40',
+              cartItem.size,
               style: const TextStyle(
                 fontSize: 11,
               ),
@@ -65,12 +65,13 @@ Widget buildCartItem(BuildContext context, CartItem cartItem) {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  height: 30,
+                  height: 25,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.black38, width: 2),
                   ),
                   child: IconButton(
+                    padding: const EdgeInsets.all(0),
                     onPressed: () {
                       Provider.of<CartProvider>(context, listen: false)
                           .updateQuantity(cartItem, cartItem.quantity - 1);
@@ -83,12 +84,13 @@ Widget buildCartItem(BuildContext context, CartItem cartItem) {
                 ),
                 Text(cartItem.quantity.toString()), // This should update now
                 Container(
-                  height: 30,
+                  height: 25,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.black, width: 2),
                   ),
                   child: IconButton(
+                    padding: const EdgeInsets.all(0),
                     onPressed: () {
                       Provider.of<CartProvider>(context, listen: false)
                           .updateQuantity(cartItem, cartItem.quantity + 1);

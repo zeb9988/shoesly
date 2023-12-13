@@ -6,14 +6,15 @@ import 'package:sneakerapp/view/screens/product_detail.dart';
 class ShoeGrid extends StatefulWidget {
   final String? filterBrand;
 
-  ShoeGrid({this.filterBrand});
+  const ShoeGrid({super.key, this.filterBrand});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ShoeGridState createState() => _ShoeGridState();
 }
 
 class _ShoeGridState extends State<ShoeGrid> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -159,33 +160,5 @@ class _ShoeGridState extends State<ShoeGrid> {
         }
       },
     );
-  }
-}
-
-class Nike extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ShoeGrid(filterBrand: 'Nike');
-  }
-}
-
-class Adidas extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ShoeGrid(filterBrand: 'Adidas');
-  }
-}
-
-class Reebok extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ShoeGrid(filterBrand: 'Reebok');
-  }
-}
-
-class Jordan extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ShoeGrid(filterBrand: 'Jordan');
   }
 }
