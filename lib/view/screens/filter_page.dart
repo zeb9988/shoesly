@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sneakerapp/view/screens/Homepage.dart';
+import 'package:sneakerapp/common/shoelist.dart';
+import 'package:sneakerapp/model/shoemodel.dart';
+import 'package:sneakerapp/view/screens/FilteredScreen.dart';
 
 class Filter extends StatefulWidget {
   static const String id = '/filter';
@@ -9,14 +11,75 @@ class Filter extends StatefulWidget {
 }
 
 class _FilterState extends State<Filter> {
+  // State variables
   String selectedBrand = '';
   RangeValues _priceRange = const RangeValues(0.0, 1750.0);
   String selectedSortOption = '';
   String selectedSortOption2 = '';
   String selectedSortOption3 = '';
+
+  List<Shoe> filteredShoes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize filteredShoes with allShoes initially
+    filteredShoes = dummyShoes;
+  }
+
+  void updateFilteredShoes() {
+    setState(() {
+      filteredShoes = _performFiltering();
+      _performSorting();
+    });
+
+    // Navigate to the new screen displaying filtered products
+    Navigator.pushNamed(context, FilteredProductsScreen.id,
+        arguments: filteredShoes);
+  }
+
+  List<Shoe> _performFiltering() {
+    List<Shoe> result = dummyShoes;
+
+    // Filter based on selectedBrand
+    if (selectedBrand.isNotEmpty) {
+      result = result.where((shoe) => shoe.brand == selectedBrand).toList();
+    }
+
+    // Filter based on price range
+    result = result
+        .where((shoe) =>
+            shoe.price >= _priceRange.start && shoe.price <= _priceRange.end)
+        .toList();
+
+    // Add more filtering logic based on other selected filters
+
+    return result;
+  }
+
+  void _performSorting() {
+    switch (selectedSortOption) {
+      case 'Most Recent':
+        // Implement sorting logic for most recent
+        filteredShoes.sort((a, b) => b.id.compareTo(a.id));
+        break;
+      case 'Lowest Price':
+        // Implement sorting logic for lowest price
+        filteredShoes.sort((a, b) => a.price.compareTo(b.price));
+        break;
+      case 'Highest Reviews':
+        // Implement sorting logic for highest reviews
+        filteredShoes
+            .sort((a, b) => b.averageRating.compareTo(a.averageRating));
+        break;
+      // Add more sorting options as needed
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Scaffold widget with AppBar, BottomNavigationBar, and body
       backgroundColor: const Color(0xffF3F3F3),
       appBar: AppBar(
         title: const Text(
@@ -30,6 +93,7 @@ class _FilterState extends State<Filter> {
         centerTitle: true,
       ),
       bottomNavigationBar: Container(
+        // Bottom navigation bar with RESET and Apply buttons
         padding: const EdgeInsets.all(16.0),
         width: double.infinity,
         height: 90,
@@ -39,27 +103,34 @@ class _FilterState extends State<Filter> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // RESET button
             Container(
+              // Container for RESET button
               padding: const EdgeInsets.all(16.0),
               width: 150,
               height: 70,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: Colors.black45)),
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(color: Colors.black45),
+              ),
               child: const Center(
                 child: Text(
                   'RESET (4)',
                   style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
+            // Apply button
             InkWell(
-              onTap: () => Navigator.pushNamedAndRemoveUntil(
-                  context, DiscoverPage.id, (route) => false),
+              onTap: () {
+                updateFilteredShoes();
+              },
               child: Container(
+                // Container for Apply button
                 padding: const EdgeInsets.all(16.0),
                 width: 150,
                 height: 70,
@@ -71,9 +142,10 @@ class _FilterState extends State<Filter> {
                   child: Text(
                     'Apply',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ),
@@ -83,11 +155,13 @@ class _FilterState extends State<Filter> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          // SingleChildScrollView to allow scrolling
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Brands section
                 const Text(
                   "Brands",
                   style: TextStyle(
@@ -98,7 +172,8 @@ class _FilterState extends State<Filter> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    buildBrandItem("NIKE", "1001 Items", "assets/logo1.png",
+                    // Brand items
+                    buildBrandItem("Nike", "1001 Items", "assets/logo1.png",
                         "assets/vector.png"),
                     buildBrandItem("Puma", "601 Items", "assets/logo2.png",
                         "assets/vector.png"),
@@ -111,6 +186,7 @@ class _FilterState extends State<Filter> {
                   ],
                 ),
                 const SizedBox(height: 16),
+                // Price Range section
                 const Text(
                   "Price Range",
                   style: TextStyle(
@@ -119,8 +195,9 @@ class _FilterState extends State<Filter> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                buildPriceRangeSlider(),
+                buildPriceRangeSlider(), // Price Range Slider
                 const SizedBox(height: 25),
+                // Sort By section
                 const Text(
                   "Sort By",
                   style: TextStyle(
@@ -129,8 +206,9 @@ class _FilterState extends State<Filter> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                buildSortBySection(),
+                buildSortBySection(), // Sort By Options
                 const SizedBox(height: 25),
+                // Gender section
                 const Text(
                   "Gender",
                   style: TextStyle(
@@ -139,8 +217,9 @@ class _FilterState extends State<Filter> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                buildGender(),
+                buildGender(), // Gender Options
                 const SizedBox(height: 25),
+                // Color section
                 const Text(
                   "Color",
                   style: TextStyle(
@@ -149,7 +228,7 @@ class _FilterState extends State<Filter> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                buildColor(),
+                buildColor(), // Color Options
               ],
             ),
           ),
@@ -158,6 +237,7 @@ class _FilterState extends State<Filter> {
     );
   }
 
+  // Widget to build Color Options
   Widget buildColor() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -172,6 +252,7 @@ class _FilterState extends State<Filter> {
     );
   }
 
+  // Widget to build individual Color Option
   Widget buildColorSortOption(String option, Color color) {
     bool isSelected = selectedSortOption3 == option;
 
@@ -186,12 +267,12 @@ class _FilterState extends State<Filter> {
         child: Container(
           width: 100,
           decoration: BoxDecoration(
-              // color: isSelected ? Colors.black : Colors.grey,
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                width: 1,
-                color: isSelected ? Colors.black : Colors.grey,
-              )),
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(
+              width: 1,
+              color: isSelected ? Colors.black : Colors.grey,
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -221,6 +302,7 @@ class _FilterState extends State<Filter> {
     );
   }
 
+  // Widget to build Gender Options
   Widget buildGender() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -235,6 +317,7 @@ class _FilterState extends State<Filter> {
     );
   }
 
+  // Widget to build individual Gender Option
   Widget buildGenderSortOption(String option) {
     bool isSelected = selectedSortOption2 == option;
 
@@ -248,20 +331,22 @@ class _FilterState extends State<Filter> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
-              color: isSelected ? Colors.black : Colors.white,
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                width: 1,
-                color: isSelected ? Colors.black : Colors.grey,
-              )),
+            color: isSelected ? Colors.black : Colors.white,
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(
+              width: 1,
+              color: isSelected ? Colors.black : Colors.grey,
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               option,
               style: TextStyle(
-                  fontSize: 16,
-                  color: isSelected ? Colors.white : Colors.black,
-                  fontWeight: FontWeight.bold),
+                fontSize: 16,
+                color: isSelected ? Colors.white : Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -269,6 +354,7 @@ class _FilterState extends State<Filter> {
     );
   }
 
+  // Widget to build Sort By Options
   Widget buildSortBySection() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -283,6 +369,7 @@ class _FilterState extends State<Filter> {
     );
   }
 
+  // Widget to build individual Sort By Option
   Widget buildSortOption(String option) {
     bool isSelected = selectedSortOption == option;
 
@@ -296,20 +383,22 @@ class _FilterState extends State<Filter> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
-              color: isSelected ? Colors.black : Colors.white,
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                width: 1,
-                color: isSelected ? Colors.black : Colors.grey,
-              )),
+            color: isSelected ? Colors.black : Colors.white,
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(
+              width: 1,
+              color: isSelected ? Colors.black : Colors.grey,
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               option,
               style: TextStyle(
-                  fontSize: 16,
-                  color: isSelected ? Colors.white : Colors.black,
-                  fontWeight: FontWeight.bold),
+                fontSize: 16,
+                color: isSelected ? Colors.white : Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -317,6 +406,7 @@ class _FilterState extends State<Filter> {
     );
   }
 
+  // Widget to build individual Brand Item
   Widget buildBrandItem(String brandName, String itemCount, String ellipseImage,
       String vectorImage) {
     bool isSelected = selectedBrand == brandName;
@@ -365,7 +455,6 @@ class _FilterState extends State<Filter> {
                 itemCount,
                 style: const TextStyle(
                   fontSize: 11,
-                  // fontWeight: FontWeight.w400,
                 ),
               ),
             ],
@@ -375,6 +464,7 @@ class _FilterState extends State<Filter> {
     );
   }
 
+  // Widget to build Price Range Slider
   Widget buildPriceRangeSlider() {
     return Column(
       children: [

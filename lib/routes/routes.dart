@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sneakerapp/model/shoemodel.dart';
-import 'package:sneakerapp/view/screens/Homepage.dart';
-import 'package:sneakerapp/view/screens/Rating.dart';
-import 'package:sneakerapp/view/screens/cartscreen.dart';
-import 'package:sneakerapp/view/screens/filter.dart';
-import 'package:sneakerapp/view/screens/order-summary.dart';
-import 'package:sneakerapp/view/screens/productdetail.dart';
+import 'package:sneakerapp/view/screens/Discover_page.dart';
+import 'package:sneakerapp/view/screens/FilteredScreen.dart';
+import 'package:sneakerapp/view/screens/review_page.dart';
+import 'package:sneakerapp/view/screens/cart_page.dart';
+import 'package:sneakerapp/view/screens/filter_page.dart';
+import 'package:sneakerapp/view/screens/checkout_page.dart';
+import 'package:sneakerapp/view/screens/product_detail.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -34,9 +35,16 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => OrderSummaryPage(),
       );
     case Filter.id:
+      // var shoes = routeSettings.arguments as List<Shoe>;
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => Filter(),
+      );
+    case FilteredProductsScreen.id:
+      var shoes = routeSettings.arguments as List<Shoe>;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => FilteredProductsScreen(filteredShoes: shoes),
       );
     case DiscoverPage.id:
       return MaterialPageRoute(

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakerapp/provider/userprovider.dart';
-import 'package:sneakerapp/view/screens/Homepage.dart';
+import 'package:sneakerapp/view/screens/Discover_page.dart';
 
 Future<void> placeOrder(BuildContext context) async {
   final cart = Provider.of<CartProvider>(context, listen: false);

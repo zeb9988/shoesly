@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sneakerapp/firebase_options.dart';
 import 'package:sneakerapp/provider/userprovider.dart';
 import 'package:sneakerapp/routes/routes.dart';
-import 'package:sneakerapp/view/screens/Homepage.dart';
+import 'package:sneakerapp/view/screens/Discover_page.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

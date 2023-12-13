@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sneakerapp/provider/userprovider.dart';
-import 'package:sneakerapp/view/screens/order-summary.dart';
+import 'package:sneakerapp/view/screens/checkout_page.dart';
 import 'package:sneakerapp/view/widgets/cartwidget.dart';
 
 class CartScreen extends StatelessWidget {

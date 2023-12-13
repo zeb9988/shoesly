@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:sneakerapp/common/loader.dart';
 import 'package:sneakerapp/model/shoemodel.dart'; // Assuming you have a CartProvider class
 import 'package:sneakerapp/provider/userprovider.dart';
-import 'package:sneakerapp/view/screens/Homepage.dart';
-import 'package:sneakerapp/view/screens/Rating.dart';
-import 'package:sneakerapp/view/screens/cartscreen.dart';
+import 'package:sneakerapp/view/screens/Discover_page.dart';
+import 'package:sneakerapp/view/screens/review_page.dart';
+import 'package:sneakerapp/view/screens/cart_page.dart';
 import 'package:sneakerapp/view/widgets/sizeselect.dart';
 import 'package:sneakerapp/view/widgets/star.dart';
 import 'package:sneakerapp/view/widgets/topthreereview.dart';

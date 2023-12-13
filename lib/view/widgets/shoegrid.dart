@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sneakerapp/common/shoelist.dart';
 import 'package:sneakerapp/model/shoemodel.dart';
-import 'package:sneakerapp/view/screens/productdetail.dart';
+import 'package:sneakerapp/view/screens/product_detail.dart';
 
 class ShoeGrid extends StatefulWidget {
   final String? filterBrand;
