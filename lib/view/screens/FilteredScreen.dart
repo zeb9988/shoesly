@@ -4,11 +4,31 @@ import 'package:flutter/material.dart';
 import 'package:sneakerapp/model/shoemodel.dart';
 import 'package:sneakerapp/view/screens/product_detail.dart';
 
-class FilteredProductsScreen extends StatelessWidget {
+class FilteredProductsScreen extends StatefulWidget {
   static const String id = '/FilteredScreen';
   final List<Shoe> filteredShoes;
 
   const FilteredProductsScreen({super.key, required this.filteredShoes});
+
+  @override
+  State<FilteredProductsScreen> createState() => _FilteredProductsScreenState();
+}
+
+class _FilteredProductsScreenState extends State<FilteredProductsScreen> {
+  double averageRating = 0;
+  double calculateAverageRating(Shoe shoe) {
+    if (shoe.reviews.isEmpty) {
+      return 0.0;
+    }
+
+    double totalRating = 0;
+
+    for (Review review in shoe.reviews) {
+      totalRating += review.rating;
+    }
+
+    return totalRating / shoe.reviews.length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +45,11 @@ class FilteredProductsScreen extends StatelessWidget {
           crossAxisSpacing: 12, // Adjust the spacing as needed
           mainAxisExtent: 245, // Adjust the height as needed
         ),
-        itemCount: filteredShoes.length + 1,
+        itemCount: widget.filteredShoes.length + 1,
         itemBuilder: (context, index) {
-          if (index < filteredShoes.length) {
-            final shoe = filteredShoes[index];
+          if (index < widget.filteredShoes.length) {
+            final shoe = widget.filteredShoes[index];
+            averageRating = calculateAverageRating(shoe);
             return InkWell(
               onTap: () => Navigator.pushNamed(context, ProductDetail.id,
                   arguments: shoe),
@@ -63,7 +84,7 @@ class FilteredProductsScreen extends StatelessWidget {
                               size: 16.0,
                             ),
                             Text(
-                              '${shoe.averageRating}',
+                              averageRating.toStringAsFixed(1),
                               style: const TextStyle(
                                   fontSize: 12.0, fontWeight: FontWeight.bold),
                             ),

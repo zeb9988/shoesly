@@ -24,9 +24,11 @@ class _ProductDetailState extends State<ProductDetail> {
   int quantity = 1;
   String selectedSize = '';
   double totalPrice = 0.0;
-
+  double totalRating = 0.0;
+  double averageRating = 0;
   @override
   void initState() {
+    averageRating = calculateAverageRating();
     super.initState();
     updateTotalPrice();
   }
@@ -35,6 +37,18 @@ class _ProductDetailState extends State<ProductDetail> {
     setState(() {
       totalPrice = widget.product.price * quantity;
     });
+  }
+
+  double calculateAverageRating() {
+    if (widget.product.reviews.isEmpty) {
+      return 0.0;
+    }
+
+    for (Review review in widget.product.reviews) {
+      totalRating += review.rating;
+    }
+
+    return totalRating / widget.product.reviews.length;
   }
 
   void addToCart(BuildContext context) async {
@@ -358,12 +372,12 @@ class _ProductDetailState extends State<ProductDetail> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Star(rating: widget.product.averageRating),
+                    Star(rating: averageRating),
                     const SizedBox(
                       width: 5,
                     ),
                     Text(
-                      '${widget.product.averageRating}',
+                      '${averageRating.toStringAsFixed(1)}',
                       style: const TextStyle(
                           fontSize: 12.0, fontWeight: FontWeight.bold),
                     ),

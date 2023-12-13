@@ -15,7 +15,6 @@ class Shoe {
   final String name;
   final String brand;
   final double price;
-
   final List<Review> reviews; // Add a list of reviews
   final double averageRating;
   final String imageUrl;

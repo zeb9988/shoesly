@@ -15,12 +15,39 @@ class ShoeGrid extends StatefulWidget {
 
 class _ShoeGridState extends State<ShoeGrid> {
   final ScrollController _scrollController = ScrollController();
-
+  // double totalRating = 0;
+  double averageRating = 0;
   @override
   void initState() {
+    // averageRating = calculateAverageRating();
     super.initState();
     _scrollController.addListener(_scrollListener);
   }
+
+  double calculateAverageRating(Shoe shoe) {
+    if (shoe.reviews.isEmpty) {
+      return 0.0;
+    }
+
+    double totalRating = 0;
+
+    for (Review review in shoe.reviews) {
+      totalRating += review.rating;
+    }
+
+    return totalRating / shoe.reviews.length;
+  }
+  // double calculateAverageRating() {
+  //   if (widget.filterBrand.reviews.isEmpty) {
+  //     return 0.0;
+  //   }
+
+  //   for (Review review in widget.product.reviews) {
+  //     totalRating += review.rating;
+  //   }
+
+  //   return totalRating / widget.product.reviews.length;
+  // }
 
   @override
   void dispose() {
@@ -91,6 +118,7 @@ class _ShoeGridState extends State<ShoeGrid> {
       itemBuilder: (context, index) {
         if (index < filteredShoes.length) {
           final shoe = filteredShoes[index];
+          averageRating = calculateAverageRating(shoe);
           return InkWell(
             onTap: () =>
                 Navigator.pushNamed(context, ProductDetail.id, arguments: shoe),
@@ -125,7 +153,7 @@ class _ShoeGridState extends State<ShoeGrid> {
                             size: 16.0,
                           ),
                           Text(
-                            '${shoe.averageRating}',
+                            averageRating.toStringAsFixed(1),
                             style: const TextStyle(
                                 fontSize: 12.0, fontWeight: FontWeight.bold),
                           ),

@@ -60,7 +60,11 @@ class _FilterState extends State<Filter> {
     return result;
   }
 
+  double averageRating = 0;
   void _performSorting() {
+    filteredShoes.forEach((shoe) {
+      averageRating = calculateAverageRating(shoe);
+    });
     switch (selectedSortOption) {
       case 'Most Recent':
         // Implement sorting logic for most recent
@@ -77,6 +81,20 @@ class _FilterState extends State<Filter> {
         break;
       // Add more sorting options as needed
     }
+  }
+
+  double calculateAverageRating(Shoe shoe) {
+    if (shoe.reviews.isEmpty) {
+      return 0.0;
+    }
+
+    double totalRating = 0;
+
+    for (Review review in shoe.reviews) {
+      totalRating += review.rating;
+    }
+
+    return totalRating / shoe.reviews.length;
   }
 
   @override
