@@ -73,24 +73,24 @@ During the development of this project, certain assumptions were made:
 
 ### 1. Filter Screen -
 
-**Description:** Implemented a dedicated Filter screen allowing users to filter products based on brand and price range. - 
-**Details:** The Filter screen enhances the user experience by providing advanced filtering options, contributing to a more refined product discovery process. 
+**Description:** Implemented a dedicated Filter screen allowing users to filter products based on brand and price range. 
+- **Details:** The Filter screen enhances the user experience by providing advanced filtering options, contributing to a more refined product discovery process. 
 
 ### 2. Discover Page - 
 
 **Description:** Enhanced the Discover page with sorting options, including most recent, lowest price, and highest reviews. 
 - **Details:** Users can now sort the displayed products based on different criteria, providing flexibility and a personalized shopping experience.
-- 
+  
  ### 3. UI Enhancements
  
  **Description:** Improved the overall UI design with custom tabs and a responsive layout. 
-**Details:** The UI enhancements contribute to a more visually appealing and user-friendly interface, providing a seamless and engaging experience.
+ - **Details:** The UI enhancements contribute to a more visually appealing and user-friendly interface, providing a seamless and engaging experience.
 
  ### 4. Additional Enhancements
  
-**Check-in Screens:** Added loading indicators in various screens to improve user feedback during data fetching processes.
- **Unit Testing:** Conducted comprehensive unit testing for the entire provider state management to ensure code reliability. 
-**Error Handling:** Implemented dialog boxes to display detailed error messages and snackbars for better user notification in case of errors. 
+- **Check-in Screens:** Added loading indicators in various screens to improve user feedback during data fetching processes.
+- **Unit Testing:** Conducted comprehensive unit testing for the entire provider state management to ensure code reliability. 
+- **Error Handling:** Implemented dialog boxes to display detailed error messages and snackbars for better user notification in case of errors. 
 
 Feel free to contribute, report issues, or suggest improvements to make this Sneaker App even better!
 
