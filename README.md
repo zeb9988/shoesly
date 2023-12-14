@@ -26,7 +26,7 @@ Before getting started, make sure you have the following installed:
 1. Clone the repository to your local machine.
 
     ```bash
-    [git clone https://github.com/your-username/sneaker-app.git](https://github.com/zeb9988/shoesly.git)
+    git clone https://github.com/your-username/sneaker-app.git](https://github.com/zeb9988/shoesly.git
     ```
 
 2. Navigate to the project directory.
