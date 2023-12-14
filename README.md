@@ -10,7 +10,6 @@ This Flutter project is a mobile application that focuses on sneakers. Users can
 - [Assumptions](#assumptions)
 - [Challenges and Solutions](#challenges-and-solutions)
 - [Additional Features and Improvements](#additional-features-and-improvements)
-- [Table of Contents](#table-of-contents)
 
 ## Project Setup Instructions
 
