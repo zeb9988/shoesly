@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:sneakerapp/firebase_options.dart';
 import 'package:sneakerapp/provider/userprovider.dart';
 import 'package:sneakerapp/routes/routes.dart';
-import 'package:sneakerapp/view/screens/Discover_page.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerapp/view/screens/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   runApp(
     ChangeNotifierProvider<CartProvider>(
       create: (context) => CartProvider(),
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const DiscoverPage(),
+      home: const SplashScreen(),
       onGenerateRoute: (settings) => generateRoute(settings),
     );
   }

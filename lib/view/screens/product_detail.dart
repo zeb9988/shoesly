@@ -377,7 +377,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       width: 5,
                     ),
                     Text(
-                      '${averageRating.toStringAsFixed(1)}',
+                      averageRating.toStringAsFixed(1),
                       style: const TextStyle(
                           fontSize: 12.0, fontWeight: FontWeight.bold),
                     ),

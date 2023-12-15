@@ -62,9 +62,9 @@ class _FilterState extends State<Filter> {
 
   double averageRating = 0;
   void _performSorting() {
-    filteredShoes.forEach((shoe) {
+    for (var shoe in filteredShoes) {
       averageRating = calculateAverageRating(shoe);
-    });
+    }
     switch (selectedSortOption) {
       case 'Most Recent':
         // Implement sorting logic for most recent

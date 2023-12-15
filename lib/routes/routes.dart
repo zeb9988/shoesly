@@ -7,6 +7,7 @@ import 'package:sneakerapp/view/screens/cart_page.dart';
 import 'package:sneakerapp/view/screens/filter_page.dart';
 import 'package:sneakerapp/view/screens/checkout_page.dart';
 import 'package:sneakerapp/view/screens/product_detail.dart';
+import 'package:sneakerapp/view/screens/splash.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -27,6 +28,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const CartScreen(),
+      );
+    case SplashScreen.id:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const SplashScreen(),
       );
 
     case OrderSummaryPage.id:
