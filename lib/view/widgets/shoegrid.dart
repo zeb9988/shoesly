@@ -161,7 +161,7 @@ class _ShoeGridState extends State<ShoeGrid> {
                             width: 3,
                           ),
                           Text(
-                            '(${shoe.reviews.length}) Reviews)',
+                            '(${shoe.reviews.length}) Reviews',
                             style: const TextStyle(
                                 fontSize: 11.0, color: Colors.black45),
                           ),

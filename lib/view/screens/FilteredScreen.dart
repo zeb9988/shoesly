@@ -92,7 +92,7 @@ class _FilteredProductsScreenState extends State<FilteredProductsScreen> {
                               width: 3,
                             ),
                             Text(
-                              '(${shoe.reviews.length}) Reviews)',
+                              '(${shoe.reviews.length}) Reviews',
                               style: const TextStyle(
                                   fontSize: 11.0, color: Colors.black45),
                             ),
